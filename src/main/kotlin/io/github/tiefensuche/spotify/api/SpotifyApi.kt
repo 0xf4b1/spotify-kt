@@ -99,6 +99,14 @@ class SpotifyApi {
         return response.getJSONArray("items")
     }
 
+    private fun getArtists(json: JSONArray): String {
+        val artists = mutableListOf<String>()
+        for (i in 0 until json.length()) {
+            artists.add(json.getJSONObject(i).getString("name"))
+        }
+        return artists.joinToString()
+    }
+
     private fun parseTracks(items: JSONArray): List<Track> {
         val result = mutableListOf<Track>()
         if (items.length() == 0) {
@@ -115,7 +123,7 @@ class SpotifyApi {
             result.add(
                 Track(
                     item.getString("uri"),
-                    item.getJSONArray("artists").getJSONObject(0).getString("name"),
+                    getArtists(item.getJSONArray("artists")),
                     item.getString("name"),
                     if (item.has("album")) item.getJSONObject("album").getString("name") else "",
                     item.getLong("duration_ms"),
@@ -158,7 +166,7 @@ class SpotifyApi {
             val item = items.getJSONObject(i).getJSONObject("album")
             result.add(
                 Album(item.getString("id"),
-                item.getJSONArray("artists").getJSONObject(0).getString("name"),
+                getArtists(item.getJSONArray("artists")),
                 item.getString("name"),
                 item.getJSONArray("images").getJSONObject(0).getString("url"),
                 item.getString("uri"),
