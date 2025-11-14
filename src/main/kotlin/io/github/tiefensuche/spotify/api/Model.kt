@@ -8,7 +8,8 @@ data class Track(
     val duration: Long,
     val artwork: String,
     val url: String,
-    val liked: Boolean
+    val liked: Boolean,
+    val playable: Boolean
 )
 
 data class Album(

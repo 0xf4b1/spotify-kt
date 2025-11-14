@@ -134,7 +134,8 @@ class SpotifyApi {
                         item.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url")
                     } else "",
                     item.getString("uri"),
-                    savedStatus.getBoolean(i)
+                    savedStatus.getBoolean(i),
+                    if (item.has("is_playable")) item.getBoolean("is_playable") else true
                 )
             )
 
