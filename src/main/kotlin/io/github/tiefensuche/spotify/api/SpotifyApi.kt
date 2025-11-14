@@ -129,7 +129,7 @@ class SpotifyApi {
                     item.getLong("duration_ms"),
                     if (item.has("album") &&
                         item.getJSONObject("album").has("images") &&
-                        !item.getJSONObject("album").getJSONArray("images").isEmpty
+                        item.getJSONObject("album").getJSONArray("images").length() > 0
                     ) {
                         item.getJSONObject("album").getJSONArray("images").getJSONObject(0).getString("url")
                     } else "",
